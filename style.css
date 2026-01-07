@@ -1,3 +1,10 @@
+/* --- ГЛОБАЛЬНИЙ ФІКС ПРОКРУТКИ --- */
+html, body {
+    overflow-x: hidden; /* Забороняє горизонтальний скрол */
+    width: 100%;
+    position: relative;
+}
+
 /* --- 1. CONFIG & VARIABLES --- */
 :root {
     --bg-main: #0f172a;
@@ -737,63 +744,59 @@ img { display: block; max-width: 100%; }
     border-radius: 2px;
 }
 
-/* 2. Адаптація під мобільні (все, що менше 768px) */
+/* --- ВИПРАВЛЕНЕ МОБІЛЬНЕ МЕНЮ --- */
 @media (max-width: 768px) {
 
-    /* Показуємо кнопку бургер */
+    /* 1. Бургер показуємо */
     .hamburger {
-        display: block;
+        display: block !important;
+        cursor: pointer;
+        z-index: 1001;
     }
 
-    /* Налаштування меню-шторки */
+    /* 2. Меню ХОВАЄМО за межі екрану */
     .nav-menu {
-        position: fixed; /* Фіксуємо на екрані */
+        position: fixed !important; /* Жорстко фіксуємо */
         top: 0;
-        right: -100%; /* Ховаємо за правий край екрану */
+        right: -120%; /* Відсуваємо ще далі, щоб точно не було видно */
         width: 100%;
-        height: 100vh; /* На всю висоту */
-        background: rgba(15, 23, 42, 0.98); /* Темний фон (під твій дизайн) */
-        backdrop-filter: blur(10px); /* Розмиття фону */
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(15px);
 
         display: flex;
-        flex-direction: column; /* Список вертикально */
-        justify-content: center; /* По центру вертикально */
-        align-items: center;     /* По центру горизонтально */
-        gap: 40px;               /* Відступи між пунктами */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
 
-        transition: 0.4s ease; /* Плавний виїзд */
+        transition: right 0.4s ease-in-out; /* Плавний виїзд */
         z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5); /* Тінь зліва */
     }
 
-    /* Клас, який додається JS, щоб показати меню */
+    /* 3. Клас active повертає меню на екран */
     .nav-menu.active {
-        right: 0;
+        right: 0 !important;
     }
 
-    /* Стилі посилань у мобільному меню */
     .nav-item {
-        font-size: 24px;
+        font-size: 22px;
+        color: white;
+    }
+
+    /* Анімація бургера */
+    .hamburger span {
         display: block;
+        width: 30px;
+        height: 3px;
+        background: white;
+        margin: 6px 0;
+        transition: 0.4s;
     }
 
-    /* Адаптація кнопки "Контакти" всередині меню */
-    .nav-menu .accent-btn {
-        width: 80%;
-        text-align: center;
-        padding: 15px;
-        margin-top: 20px;
-    }
-
-    /* 3. Анімація перетворення бургера на хрестик (X) */
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(-45deg) translate(-7px, 6px);
-        background-color: var(--accent); /* Стає фіолетовим */
-    }
-    .hamburger.active span:nth-child(2) {
-        opacity: 0; /* Середня паличка зникає */
-    }
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(45deg) translate(-7px, -6px);
-        background-color: var(--accent);
-    }
+    .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-7px, 6px); background: var(--accent); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-7px, -6px); background: var(--accent); }
 }
+
