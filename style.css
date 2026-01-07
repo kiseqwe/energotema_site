@@ -716,3 +716,84 @@ img { display: block; max-width: 100%; }
         width: 100%; /* Кнопка на всю ширину */
     }
 }
+
+/* --- HAMBURGER MENU (З НУЛЯ) --- */
+
+/* 1. Стилі самої кнопки (три смужки) */
+.hamburger {
+    display: none; /* На ПК її не видно */
+    cursor: pointer;
+    z-index: 1001; /* Щоб була поверх усього */
+    padding: 10px; /* Збільшуємо область кліку */
+}
+
+.hamburger span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s; /* Плавна анімація */
+    border-radius: 2px;
+}
+
+/* 2. Адаптація під мобільні (все, що менше 768px) */
+@media (max-width: 768px) {
+
+    /* Показуємо кнопку бургер */
+    .hamburger {
+        display: block;
+    }
+
+    /* Налаштування меню-шторки */
+    .nav-menu {
+        position: fixed; /* Фіксуємо на екрані */
+        top: 0;
+        right: -100%; /* Ховаємо за правий край екрану */
+        width: 100%;
+        height: 100vh; /* На всю висоту */
+        background: rgba(15, 23, 42, 0.98); /* Темний фон (під твій дизайн) */
+        backdrop-filter: blur(10px); /* Розмиття фону */
+
+        display: flex;
+        flex-direction: column; /* Список вертикально */
+        justify-content: center; /* По центру вертикально */
+        align-items: center;     /* По центру горизонтально */
+        gap: 40px;               /* Відступи між пунктами */
+
+        transition: 0.4s ease; /* Плавний виїзд */
+        z-index: 1000;
+    }
+
+    /* Клас, який додається JS, щоб показати меню */
+    .nav-menu.active {
+        right: 0;
+    }
+
+    /* Стилі посилань у мобільному меню */
+    .nav-item {
+        font-size: 24px;
+        display: block;
+    }
+
+    /* Адаптація кнопки "Контакти" всередині меню */
+    .nav-menu .accent-btn {
+        width: 80%;
+        text-align: center;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    /* 3. Анімація перетворення бургера на хрестик (X) */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-7px, 6px);
+        background-color: var(--accent); /* Стає фіолетовим */
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0; /* Середня паличка зникає */
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-7px, -6px);
+        background-color: var(--accent);
+    }
+}

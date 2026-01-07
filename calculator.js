@@ -125,3 +125,30 @@ cards.forEach(card => {
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
     });
 });
+
+/* --- МОБІЛЬНЕ МЕНЮ --- */
+const hamburger = document.getElementById('hamburgerBtn');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-item');
+
+// 1. Клік на бургер
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+
+    // Блокуємо скрол сторінки, якщо меню відкрите
+    if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// 2. Закриваємо меню при кліку на будь-яке посилання
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+});
