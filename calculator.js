@@ -126,29 +126,39 @@ cards.forEach(card => {
     });
 });
 
-/* --- МОБІЛЬНЕ МЕНЮ --- */
-const hamburger = document.getElementById('hamburgerBtn');
-const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-item');
+/* --- МОБІЛЬНЕ МЕНЮ (FIXED SCROLL) --- */
+function toggleMenu() {
+    const menu = document.getElementById("navMenu");
+    const burger = document.querySelector(".hamburger");
 
-// 1. Клік на бургер
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
+    // Перемикаємо класи
+    menu.classList.toggle("active");
+    burger.classList.toggle("active");
 
-    // Блокуємо скрол сторінки, якщо меню відкрите
-    if (navMenu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
+    // ГОЛОВНИЙ ФІКС: Блокування скролу
+    if (menu.classList.contains("active")) {
+        // Якщо меню відкрите — забороняємо скрол
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh"; // Фіксуємо висоту, щоб не "скакало"
     } else {
-        document.body.style.overflow = 'auto';
+        // Якщо меню закрите — дозволяємо скрол
+        document.body.style.overflow = ""; // Скидаємо стиль
+        document.body.style.height = "";   // Скидаємо висоту
     }
-});
+}
 
-// 2. Закриваємо меню при кліку на будь-яке посилання
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
+// Додатково: Закриваємо меню при кліку на посилання
+document.querySelectorAll(".nav-item").forEach(link => {
+    link.addEventListener("click", () => {
+        const menu = document.getElementById("navMenu");
+        const burger = document.querySelector(".hamburger");
+
+        // Прибираємо активні класи
+        menu.classList.remove("active");
+        burger.classList.remove("active");
+
+        // Обов'язково повертаємо скрол!
+        document.body.style.overflow = "";
+        document.body.style.height = "";
     });
 });
